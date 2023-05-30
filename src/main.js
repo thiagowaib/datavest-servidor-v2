@@ -1,6 +1,5 @@
 // * Importações das bibliotecas
 const express = require('express')
-const mongoose = require('mongoose')
 const cors = require('cors')
 
 
@@ -12,13 +11,6 @@ require('dotenv').config()
 const initServidor = () => {
 
     const app = express()
-
-    // Conexão com o BD
-    mongoose.set('strictQuery', true)
-    mongoose.connect(process.env.DB_URI, {
-        useNewUrlParser: true,
-    })
-
 
     /**
      *  • Utilização de CORS para comunicação

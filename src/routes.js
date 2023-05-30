@@ -20,10 +20,9 @@ const {AuthTokenAcesso} = require('./middlewares')
  * no controlador referente aos Usuarios
  * ~ControllerUsuarios
  */
-const {cadastrarUsuario, login, authJWT} = require('./controllers')
+const {cadastrarUsuario, login} = require('./controllers')
 routes.post('/cadastrarUsuario', cadastrarUsuario)
 routes.post('/login', login)
-routes.get('/auth', AuthTokenAcesso, authJWT)
 
 
 /**

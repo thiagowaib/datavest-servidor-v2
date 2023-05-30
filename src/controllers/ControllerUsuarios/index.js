@@ -1,5 +1,6 @@
 // * Importações
-const {Usuarios, Vestibulares} = require('../../models')
+const {PrismaClient} = require('@prisma/client')
+const prisma = new PrismaClient()
 const jwt = require('jsonwebtoken')
 
 // * Exportação dos métodos do Controller
@@ -9,28 +10,38 @@ module.exports = {
     * POST: Cadastrar um novo usuário
     */
     cadastrarUsuario(req, res){
-        const {email, senha} = req.body
+        
+        async function main() {
+            const {email, senha} = req.body
+            const usuarios = await prisma.usuario.findFirst({
+                where: {
+                    email: email
+                }
+            })
 
-        // Busca Usuário pelo Número
-        Usuarios.findOne({email: email}, async(err, usuario) => {
-            if(err) return res.status(500).send({error: err})
-            if(usuario) return res.status(400).send({message: "Usuário já cadastrado"})
-
-            // Processo de criptografia da senha
+            if(usuarios) return res.status(400).send({message: "Usuário já cadastrado"})
             const {HashPwd} = require('../../services')
+            // Processo de criptografia da senha
             const hashedSenha = await HashPwd(senha)
-
             // Criação do novo objeto
-            const novoUsuario = new Usuarios({
-                email: email,
-                senha: hashedSenha
+            await prisma.usuario.create({
+                data: {
+                    email: email,
+                    senha: hashedSenha
+                }
             })
-    
-            // Salvamento do novo objeto
-            novoUsuario.save((err)=>{
-                if(err) return res.status(400).send({message: "Falha ao cadastrar usuário", error: err})
-                else return res.status(201).send({message: "Usuário cadastrado com sucesso"})
-            })
+
+            return res.status(201).send({message: "Usuário cadastrado com sucesso"})
+        }
+
+        main()
+        .then(async () => {
+            await prisma.$disconnect()
+        })
+        .catch(async (e) => {
+            console.error(e)
+            await prisma.$disconnect()
+            process.exit(1)
         })
     },
 
@@ -38,11 +49,17 @@ module.exports = {
     * POST: Login
     */
     login(req, res){
-        const {email, senha} = req.body
-        const {AuthPwd, SetExpDate} = require('../../services')
 
-        Usuarios.findOne({email: email}, async(err, usuario) => {
-            if(err) return res.status(500).send({error: err})
+        async function main() {
+            const {email, senha} = req.body
+            const {AuthPwd, SetExpDate} = require('../../services')
+            
+            const usuario = prisma.usuario.findUnique({
+                where: {
+                    email: email
+                }
+            })
+
             if(usuario) {
                 // Autentifica a Senha inserida
                 if(await AuthPwd(usuario.senha, senha)) {
@@ -64,13 +81,15 @@ module.exports = {
             } else {
                 return res.status(404).send({message: "Usuário não cadastrado"})
             }
+        }
+        main()
+        .then(async () => {
+            await prisma.$disconnect()
         })
-    },
-
-    /**
-     * GET: Autêntica o JsonWebToken (JWT)
-     */
-    authJWT(req, res){
-        return res.status(200).send({message: "Token de acesso válido"})
-    },
+        .catch(async (e) => {
+            console.error(e)
+            await prisma.$disconnect()
+            process.exit(1)
+        })
+    }
 }
