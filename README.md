@@ -2,7 +2,7 @@
 <img src="https://png.pngtree.com/background/20210709/original/pngtree-blue-big-data-the-internet-banner-picture-image_929540.jpg" alt="banner"
 width="100%" height="200px">
 
-> Bem vind@ ao repositório para o servidor do DataVest, um app de mapeamento das datas dos principais vestibulares.
+> Bem vind@ ao repositório para o servidor do DataVest, um app de mapeamento das datas dos principais vestibulares. Esta é a versão 2 da API, implementando conceitos de arquitetura modernas de software
 
 <br>
 
