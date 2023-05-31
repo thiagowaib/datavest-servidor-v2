@@ -6,9 +6,12 @@ module.exports = {
 
     //POST: Lista as datas dos vestibulares
     async listarDatas(req, res){
-    const Prisma = new PrismaClient()
-    async function main(){
-                const {vestibulares} = req.body
+        const Prisma = new PrismaClient()
+
+        async function main(){
+            let {vestibulares} = req.body
+
+            vestibulares = vestibulares.split('-_-_-')
 
             // Verifica se há vestibulares a serem filtrados
             if(vestibulares && vestibulares.length > 0) {
