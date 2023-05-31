@@ -9,19 +9,19 @@ module.exports = {
         const Prisma = new PrismaClient()
 
         async function main(){
-            let {vestibulares} = req.body
+            const {vestibulares} = req.body
 
-            vestibulares = vestibulares.split('-_-_-')
+            let dadosVestibulares = vestibulares.toString().split("-_-_-")
 
             // Verifica se há vestibulares a serem filtrados
-            if(vestibulares && vestibulares.length > 0) {
+            if(dadosVestibulares && dadosVestibulares.length > 0) {
                 let dados = []
 
-                for(let i = 0; i < vestibulares.length; i++) {
-                    if(vestibulares[i] != '.') {
+                for(let i = 0; i < dadosVestibulares.length; i++) {
+                    if(dadosVestibulares[i] != '.') {
                         const vest = await Prisma.Vestibulares.findUnique({
                             where: {
-                                id: vestibulares[i]
+                                id: dadosVestibulares[i]
                             }
                         })
                         if(vest != null){dados.push({descricao: vest.descricao, data: vest.data})}
