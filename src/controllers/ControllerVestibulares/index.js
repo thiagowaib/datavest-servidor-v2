@@ -11,17 +11,15 @@ module.exports = {
         async function main(){
             const {vestibulares} = req.body
 
-            let dadosVestibulares = vestibulares.toString().split("-_-_-")
-
             // Verifica se há vestibulares a serem filtrados
-            if(dadosVestibulares && dadosVestibulares.length > 0) {
+            if(vestibulares && vestibulares.length > 0) {
                 let dados = []
 
-                for(let i = 0; i < dadosVestibulares.length; i++) {
-                    if(dadosVestibulares[i] != '.') {
+                for(let i = 0; i < vestibulares.length; i++) {
+                    if(vestibulares[i] != '.') {
                         const vest = await Prisma.Vestibulares.findUnique({
                             where: {
-                                id: parseInt(dadosVestibulares[i])
+                                id: parseInt(vestibulares[i])
                             }
                         })
                         if(vest != null){dados.push({descricao: vest.descricao, data: vest.data})}
