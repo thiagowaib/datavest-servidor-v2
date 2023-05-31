@@ -9,7 +9,7 @@ width="100%" height="200px">
 ## 👨‍💻 Desenvolvido utilizando
 <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" height="35px">  •  **NodeJs**: Framework utilizado para desenvolver a API.
 
-<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" height="35px"> • **MongoDB**: Banco de Dados NoSQL
+<img src="https://th.bing.com/th/id/R.773d757722fd42a8362503320e3640b4?rik=Lp40RXBSAhG6gw&pid=ImgRaw&r=0" height="35px"> • **Prisma**: ORM
 
 <br>
 
@@ -25,7 +25,6 @@ Após feita a instalação, tudo que resta é criar um arquivo **[.env](https://
 | Chaves  | Descrição do Valor  |
 | :------------: | :------------: |
 | `SERVER_PORT` | {String} Porta do Servidor  |
-| `DB_URI`  | {String} URI de acesso ao Mongodb  |
 | `JWT_ACCESS_TOKEN_SECRET` | {String} Segredo para geração de JWTs  |
 
 Com isso só resta executar o comando abaixo para inicializar o servidor em `http://localhost:SERVER_PORT`
