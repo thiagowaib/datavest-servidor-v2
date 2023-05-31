@@ -21,7 +21,7 @@ module.exports = {
                     if(dadosVestibulares[i] != '.') {
                         const vest = await Prisma.Vestibulares.findUnique({
                             where: {
-                                id: dadosVestibulares[i]
+                                id: parseInt(dadosVestibulares[i])
                             }
                         })
                         if(vest != null){dados.push({descricao: vest.descricao, data: vest.data})}
