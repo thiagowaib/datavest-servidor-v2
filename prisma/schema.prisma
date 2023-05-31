@@ -10,14 +10,14 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Usuario {
+model Usuarios {
   id     String @id @default(auto()) @map("_id") @db.ObjectId
   email  String @unique
   senha  String
   preferencias String[]
 }
 
-model Vestibular {
+model Vestibulares {
   id    String @id @default(auto()) @map("_id") @db.ObjectId
   descricao String @unique
   data String

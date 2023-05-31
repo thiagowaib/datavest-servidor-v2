@@ -1,6 +1,6 @@
 // * Importações
 const {PrismaClient} = require('@prisma/client')
-const prisma = new PrismaClient()
+const Prisma = new PrismaClient()
 
 // * Exportação dos métodos do Controller
 module.exports = {
@@ -16,7 +16,7 @@ module.exports = {
 
                 for(let i = 0; i < vestibulares.length; i++) {
                     if(vestibulares[i] != '.') {
-                        const vest = await prisma.vestibular.findUnique({
+                        const vest = await Prisma.Vestibulares.findUnique({
                             where: {
                                 id: vestibulares[i]
                             }
@@ -35,7 +35,7 @@ module.exports = {
             } 
             // Caso não exista preferência configurada
             else {
-                let dados = await prisma.vestibular.findMany()
+                let dados = await Prisma.Vestibulares.findMany()
 
                 dados = dados.map(dado=>({descricao: dado.descricao, data: dado.data}))
                 dados.sort((a, b) => {
@@ -50,11 +50,11 @@ module.exports = {
 
         main()
         .then(async () => {
-            await prisma.$disconnect()
+            await Prisma.$disconnect()
         })
         .catch(async (e) => {
             console.error(e)
-            await prisma.$disconnect()
+            await Prisma.$disconnect()
             process.exit(1)
         })
         
@@ -67,7 +67,7 @@ module.exports = {
             const {email} = req.body
 
             //Busca os dados do usuário
-            const usuario = await prisma.usuario.findUnique({
+            const usuario = await Prisma.Usuarios.findUnique({
                 where: {
                     email: email
                 }
@@ -79,7 +79,7 @@ module.exports = {
 
             // Caso haja preferencias
             if(preferencias && preferencias.length > 0) {
-                let dados = await prisma.vestibular.findMany();
+                let dados = await Prisma.Vestibulares.findMany();
 
                 dados = dados.map(dado => ({
                     id: dado.id.toString(),
@@ -91,7 +91,7 @@ module.exports = {
             }
             // Caso não existam preferencias
             else {
-                let dados = await prisma.vestibular.findMany();
+                let dados = await Prisma.Vestibulares.findMany();
 
                 return res.status(200).send(dados.map(dado=>({
                     id: dado.id.toString(),
@@ -103,11 +103,11 @@ module.exports = {
         
         main()
         .then(async () => {
-            await prisma.$disconnect()
+            await Prisma.$disconnect()
         })
         .catch(async (e) => {
             console.error(e)
-            await prisma.$disconnect()
+            await Prisma.$disconnect()
             process.exit(1)
         })
     },
@@ -119,7 +119,7 @@ module.exports = {
             const {email, preferencias} = req.body
             
             //Busca os dados do usuário
-            await prisma.usuario.update({
+            await Prisma.Usuarios.update({
                 where: {
                   email: email,
                 },
@@ -132,11 +132,11 @@ module.exports = {
         }
         main()
         .then(async () => {
-            await prisma.$disconnect()
+            await Prisma.$disconnect()
         })
         .catch(async (e) => {
             console.error(e)
-            await prisma.$disconnect()
+            await Prisma.$disconnect()
             process.exit(1)
         })
     }

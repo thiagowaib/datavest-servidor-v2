@@ -1,6 +1,6 @@
 // * Importações
 const {PrismaClient} = require('@prisma/client')
-const prisma = new PrismaClient()
+const Prisma = new PrismaClient()
 const jwt = require('jsonwebtoken')
 
 // * Exportação dos métodos do Controller
@@ -13,7 +13,7 @@ module.exports = {
         
         async function main() {
             const {email, senha} = req.body
-            const usuarios = await prisma.usuario.findFirst({
+            const usuarios = await Prisma.Usuarios.findFirst({
                 where: {
                     email: email
                 }
@@ -24,7 +24,7 @@ module.exports = {
             // Processo de criptografia da senha
             const hashedSenha = await HashPwd(senha)
             // Criação do novo objeto
-            await prisma.usuario.create({
+            await Prisma.Usuarios.create({
                 data: {
                     email: email,
                     senha: hashedSenha
@@ -36,11 +36,11 @@ module.exports = {
 
         main()
         .then(async () => {
-            await prisma.$disconnect()
+            await Prisma.$disconnect()
         })
         .catch(async (e) => {
             console.error(e)
-            await prisma.$disconnect()
+            await Prisma.$disconnect()
             process.exit(1)
         })
     },
@@ -54,7 +54,7 @@ module.exports = {
             const {email, senha} = req.body
             const {AuthPwd, SetExpDate} = require('../../services')
             
-            const usuario = prisma.usuario.findUnique({
+            const usuario = Prisma.Usuarios.findUnique({
                 where: {
                     email: email
                 }
@@ -84,11 +84,11 @@ module.exports = {
         }
         main()
         .then(async () => {
-            await prisma.$disconnect()
+            await Prisma.$disconnect()
         })
         .catch(async (e) => {
             console.error(e)
-            await prisma.$disconnect()
+            await Prisma.$disconnect()
             process.exit(1)
         })
     }
