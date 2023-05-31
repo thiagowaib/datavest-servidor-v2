@@ -75,7 +75,7 @@ module.exports = {
             if(usuario === null) return res.status(404).send({message: "Usuário não encontrado."})
 
             // Busca as preferências do usuário
-            const preferencias = usuario.preferencias
+            const preferencias = usuario.preferencias.split("-_-_-")
 
             // Caso haja preferencias
             if(preferencias && preferencias.length > 0) {
@@ -124,7 +124,7 @@ module.exports = {
                   email: email,
                 },
                 data: {
-                  preferencias: preferencias,
+                  preferencias: preferencias.join("-_-_-"),
                 },
             })
             return res.status(200).send({message: "Preferências alteradas com sucesso"})

@@ -6,19 +6,19 @@ generator client {
 }
 
 datasource db {
-  provider = "mongodb"
-  url      = env("DATABASE_URL")
+  provider = "sqlite"
+  url      = "file:./datavest.db"
 }
 
 model Usuarios {
-  id     String @id @default(auto()) @map("_id") @db.ObjectId
+  id        Int      @id @default(autoincrement())
   email  String @unique
-  senha  String
-  preferencias String[]
+  senha  String 
+  preferencias String
 }
 
 model Vestibulares {
-  id    String @id @default(auto()) @map("_id") @db.ObjectId
+  id        Int      @id @default(autoincrement())
   descricao String @unique
   data String
 }
