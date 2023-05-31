@@ -54,7 +54,7 @@ module.exports = {
             const {email, senha} = req.body
             const {AuthPwd, SetExpDate} = require('../../services')
             
-            const usuario = Prisma.Usuarios.findUnique({
+            const usuario = await Prisma.Usuarios.findUnique({
                 where: {
                     email: email
                 }
