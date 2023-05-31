@@ -27,7 +27,8 @@ module.exports = {
             await Prisma.Usuarios.create({
                 data: {
                     email: email,
-                    senha: hashedSenha
+                    senha: hashedSenha,
+                    preferencias: '.'
                 }
             })
 
