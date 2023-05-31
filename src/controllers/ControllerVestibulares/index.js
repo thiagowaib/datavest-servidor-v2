@@ -1,13 +1,13 @@
 // * Importações
 const {PrismaClient} = require('@prisma/client')
-const Prisma = new PrismaClient()
 
 // * Exportação dos métodos do Controller
 module.exports = {
 
     //POST: Lista as datas dos vestibulares
     async listarDatas(req, res){
-        async function main(){
+    const Prisma = new PrismaClient()
+    async function main(){
                 const {vestibulares} = req.body
 
             // Verifica se há vestibulares a serem filtrados
@@ -62,6 +62,7 @@ module.exports = {
 
     //POST: Busca as preferências do usuário
     async buscarPreferencias(req, res){
+        const Prisma = new PrismaClient()
 
         async function main(){
             const {email} = req.body
@@ -114,6 +115,7 @@ module.exports = {
 
     //POST: Alterar preferências do usuário
     async alterarPreferencias(req, res){
+        const Prisma = new PrismaClient()
         async function main() {
 
             const {email, preferencias} = req.body

@@ -1,6 +1,5 @@
 // * Importações
 const {PrismaClient} = require('@prisma/client')
-const Prisma = new PrismaClient()
 const jwt = require('jsonwebtoken')
 
 // * Exportação dos métodos do Controller
@@ -10,6 +9,7 @@ module.exports = {
     * POST: Cadastrar um novo usuário
     */
     cadastrarUsuario(req, res){
+        const Prisma = new PrismaClient()
         
         async function main() {
             const {email, senha} = req.body
@@ -49,6 +49,7 @@ module.exports = {
     * POST: Login
     */
     login(req, res){
+        const Prisma = new PrismaClient()
 
         async function main() {
             const {email, senha} = req.body
