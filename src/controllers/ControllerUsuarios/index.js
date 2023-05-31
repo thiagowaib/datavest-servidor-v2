@@ -28,7 +28,7 @@ module.exports = {
                 data: {
                     email: email,
                     senha: hashedSenha,
-                    preferencias: '.'
+                    preferencias: ''
                 }
             })
 
