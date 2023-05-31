@@ -80,7 +80,7 @@ module.exports = {
             const preferencias = usuario.preferencias.split("-_-_-")
 
             // Caso haja preferencias
-            if(preferencias && preferencias.length > 0) {
+            if(preferencias && preferencias.length > 0 && !(preferencias.length == 0 && preferencias[0] == '.')) {
                 let dados = await Prisma.Vestibulares.findMany();
 
                 dados = dados.map(dado => ({
